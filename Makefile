@@ -14,10 +14,10 @@ install:
 	pip install -r requirements.txt
 
 run:
-	$(PYTHON) $(BIN) $(TEMPLATE) --output $(OUTPUT)
+	$(PYTHON) $(BIN) --template $(TEMPLATE) --output $(OUTPUT)
 
 debug:
-	$(PYTHON) --debug $(BIN) $(TEMPLATE) --output $(OUTPUT)
+	$(PYTHON) $(BIN) --debug --template $(TEMPLATE) --output $(OUTPUT)
 
 format:
 	black *.py
