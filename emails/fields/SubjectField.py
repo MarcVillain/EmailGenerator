@@ -1,31 +1,27 @@
+import re
+
 import requests
 
 from emails.fields import Field
 
 
 class SubjectField(Field):
-    def __init__(self, fields):
-        super().__init__(fields)
+    def __init__(self, email):
+        super().__init__(email)
 
         self.subject = self._generate_subject()
 
     def _generate_subject(self):
-        # Get content from website
-        req = requests.get("http://enneagon.org/phrases")
-        content = req.text
-
-        # Filter out what we want
-        content_list = content.split("\n")
-        generated_text = content_list[44]
-        sentences = generated_text.split(".")
-        first_sentence = sentences[0]
-        if len(first_sentence) > 40:
-            first_sentence = first_sentence[:40]
-            words_without_last = first_sentence.split(" ")[:-1]
-            first_sentence = " ".join(words_without_last)
+        # Filter out first sentence (max length of 40 characters)
+        words = re.split(r"\W+", self.email.get_field("MESSAGE").body)
+        sentence = words[0]
+        for word in words[1:]:
+            extended_sentence = f"{sentence} {word}"
+            if len(extended_sentence) <= 40:
+                sentence = extended_sentence
 
         # Cleanup
-        return f"{first_sentence}.".replace("&nbsp;", " ")
+        return re.sub("[^a-zA-Z _-]+", "", sentence).capitalize()
 
     def __str__(self):
         return self.subject

@@ -4,8 +4,8 @@ from emails.fields import Field
 
 
 class DateField(Field):
-    def __init__(self, fields):
-        super().__init__(fields)
+    def __init__(self, email):
+        super().__init__(email)
 
         self.date = datetime.now()
 

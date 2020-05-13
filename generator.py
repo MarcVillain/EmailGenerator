@@ -26,7 +26,8 @@ class Generator:
 
         pattern_whitespaces = re.compile(r"\s+")
         output_filename = (
-            re.sub(pattern_whitespaces, "_", email.get_field("SUBJECT")) + ".eml"
+            re.sub(pattern_whitespaces, "_", email.get_field("SUBJECT").subject)
+            + ".eml"
         )
         output_path = os.path.join(self.output, output_filename)
 

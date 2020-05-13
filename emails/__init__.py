@@ -1,20 +1,27 @@
+import inspect
 import logging
 import os
 import pathlib
 from abc import ABC
 from string import Template
 
+from emails.fields import Field
 from helpers.FilesHelper import FilesHelper
 
 logger = logging.getLogger()
 
 
 class Fields:
-    def __init__(self):
+    def __init__(self, email):
+        self.email = email
+
         self.values = dict()
 
     def add(self, name, value):
-        self.values[name] = value(self)
+        if inspect.isclass(value):
+            self.values[name] = value(self.email)
+        else:
+            self.values[name] = value
 
     def get(self, name):
         return self.values[name]
@@ -28,10 +35,10 @@ class Email(ABC):
         logger.debug(f"Generate {template} email")
 
         self.template = template
-        self.fields = Fields()
+        self.fields = Fields(self)
 
     def get_field(self, name):
-        return str(self.fields.get(name))
+        return self.fields.get(name)
 
     def __str__(self):
         content = ""

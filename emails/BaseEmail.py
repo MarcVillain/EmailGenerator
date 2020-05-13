@@ -13,7 +13,7 @@ class BaseEmail(Email):
         self.fields.add("FROM", ContactField)
         self.fields.add("SENDER", self.fields.get("FROM"))
         self.fields.add("TO", ContactField)
-        self.fields.add("SUBJECT", SubjectField)
         self.fields.add("DATE", DateField)
         self.fields.add("MESSAGE_ID", IdField)
         self.fields.add("MESSAGE", MessageField)
+        self.fields.add("SUBJECT", SubjectField)

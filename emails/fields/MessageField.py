@@ -7,20 +7,21 @@ from emails.fields import Field
 
 
 class MessageField(Field):
-    def __init__(self, fields):
-        super().__init__(fields)
+    def __init__(self, email):
+        super().__init__(email)
+
+        from_field = email.get_field("FROM")
 
         self.greetings = self._generate_greetings()
         self.body = self._generate_body()
         self.farewells = self._generate_farewells()
-        from_field = fields.get("FROM")
         self.signature = "{} {}".format(from_field.first, from_field.last)
 
     def _generate_greetings(self):
         return random.choice([
             "Bonjour,",
-            f"Bonjour {self.fields.get('TO').first},",
-            f"{self.fields.get('TO').first},",
+            f"Bonjour {self.email.get_field('TO').first},",
+            f"{self.email.get_field('TO').first},",
         ])
 
     def _generate_body(self):

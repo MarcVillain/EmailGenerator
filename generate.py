@@ -28,7 +28,7 @@ def ask_yes_no(message):
 def create_dir(path):
     # Ask for cleanup if necessary
     if os.path.exists(path):
-        print(f"Folder {path} already exists.")
+        print(f"Folder '{path}' already exists.")
         if not ask_yes_no("Do you want to replace it?"):
             return False
         shutil.rmtree(path)
@@ -37,7 +37,7 @@ def create_dir(path):
     try:
         os.mkdir(path)
     except OSError as e:
-        logger.error(f"Creation of the directory {path} failed")
+        logger.error(f"Creation of the directory '{path}' failed")
         return False
 
     return True
