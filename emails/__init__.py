@@ -23,7 +23,7 @@ class Fields:
 
 class Email(ABC):
     def __init__(self, template):
-        logger.debug("Generate {template} email")
+        logger.debug(f"Generate {template} email")
 
         self.template = template
         self.fields = Fields()
