@@ -1,8 +1,10 @@
-from fields import Field
+from emails.fields import Field
 
 
 class ContactField(Field):
     def __init__(self, fields):
+        super().__init__(fields)
+
         self.first = "Barbe"
         self.last = "Rouge"
         self.email = "{}.{}@fic.com".format(self.first.lower(), self.last.lower())

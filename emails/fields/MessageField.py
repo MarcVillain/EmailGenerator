@@ -1,8 +1,10 @@
-from fields import Field
+from emails.fields import Field
 
 
 class MessageField(Field):
     def __init__(self, fields):
+        super().__init__(fields)
+
         self.greetings = "Bonjour,"
         self.body = "Ça va?"
         self.farewells = "Cordialement,"

@@ -52,11 +52,11 @@ def main(args):
         max_num_str = str(args.number)
         max_num_str_len = len(max_num_str)
 
-        generator = Generator(args.template, args.output)
+        generator = Generator(args.output)
 
         for i in range(0, args.number):
             num_str = str(i + 1).rjust(max_num_str_len)
-            logger.info(f"Generating email ({num_str}/{max_num_str})")
+            logger.info(f"Generate email ({num_str}/{max_num_str})")
             generator.generate()
 
 
@@ -69,15 +69,7 @@ def cli():
     )
 
     parser.add_argument(
-        "-o", "--output", metavar="FOLDER", help="Output folder.", default="emails",
-    )
-
-    parser.add_argument(
-        "-t",
-        "--template",
-        metavar="FILE",
-        help="EML template file.",
-        default="template.eml",
+        "-o", "--output", metavar="FOLDER", help="Output folder.", default="output",
     )
 
     parser.add_argument(
