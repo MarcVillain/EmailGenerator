@@ -16,7 +16,7 @@ run:
 	$(PYTHON) $(BIN)
 
 debug:
-	$(PYTHON) $(BIN) --debug
+	$(PYTHON) $(BIN) --debug --number 1
 
 format:
 	black *.py **/*.py

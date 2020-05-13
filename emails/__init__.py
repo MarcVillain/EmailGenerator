@@ -4,6 +4,8 @@ import pathlib
 from abc import ABC
 from string import Template
 
+from helpers.FilesHelper import FilesHelper
+
 logger = logging.getLogger()
 
 
@@ -32,10 +34,8 @@ class Email(ABC):
         return str(self.fields.get(name))
 
     def __str__(self):
-        this_file_path = pathlib.Path(__file__).parent.absolute()
-        template_path = os.path.join(this_file_path, "templates", self.template)
-
         content = ""
+        template_path = os.path.join(FilesHelper.templates_dir, self.template)
 
         logger.debug(f"Apply {self.template} template")
         with open(template_path, "r") as input_file:

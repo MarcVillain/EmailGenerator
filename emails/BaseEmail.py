@@ -11,7 +11,7 @@ class BaseEmail(Email):
         super().__init__("base")
 
         self.fields.add("FROM", ContactField)
-        self.fields.add("SENDER", ContactField)
+        self.fields.add("SENDER", self.fields.get("FROM"))
         self.fields.add("TO", ContactField)
         self.fields.add("SUBJECT", SubjectField)
         self.fields.add("DATE", DateField)
