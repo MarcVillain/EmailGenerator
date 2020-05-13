@@ -1,9 +1,9 @@
-From: {{FROM}}
-Sender: {{SENDER}}
-To: {{TO}}
-Subject: {{SUBJECT}}
-Date: {{DATE}}  # Fri, 21 Nov 1997 09:55:06 -0600
-Message-ID: {{MESSAGE_ID}}
+From: ${FROM}
+Sender: ${SENDER}
+To: ${TO}
+Subject: ${SUBJECT}
+Date: ${DATE}  # Fri, 21 Nov 1997 09:55:06 -0600
+Message-ID: ${MESSAGE_ID}
 Content-type: text/plain; charset=iso-8859-1
 
-{{MESSAGE}}
+${MESSAGE}

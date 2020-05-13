@@ -1,0 +1,23 @@
+Email Generator
+---
+
+This is a simple script that will allow for email generation.
+
+
+# Install
+
+This will create a `venv` folder, source it, and install dependencies.
+
+```bash
+make install
+```
+
+# Run
+
+```bash
+make run
+```
+
+# Authors
+
+* Marc Villain <marc.villain@epita.fr>
