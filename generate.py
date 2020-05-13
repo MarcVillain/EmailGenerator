@@ -6,6 +6,8 @@ import shutil
 from string import Template
 import sys
 
+from generator import Generator
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 logger_formatter = logging.Formatter(
@@ -41,33 +43,6 @@ def create_dir(path):
     return True
 
 
-def generate_email(template, output):
-    # Generate email fields
-    values = dict()
-    values["FROM"] = "Test"
-    values["SENDER"] = "Test"
-    values["TO"] = "Test"
-    values["SUBJECT"] = "Test"
-    values["DATE"] = "Test"
-    values["MESSAGE_ID"] = "Test"
-    values["MESSAGE"] = "Test"
-
-    # Generate output file from template
-    content = ""
-
-    with open(template, "r") as input_file:
-        logger.debug("Reading template")
-        content = Template(input_file.read())
-        content = content.substitute(values)
-
-    pattern_whitespaces = re.compile(r"\s+")
-    output_filename = re.sub(pattern_whitespaces, "_", values.get("SUBJECT")) + ".eml"
-    output_path = os.path.join(output, output_filename)
-    with open(output_path, "w") as output_file:
-        logger.debug("Writing output")
-        output_file.write(content)
-
-
 def main(args):
     if args.debug:
         logger.setLevel(logging.DEBUG)
@@ -76,10 +51,13 @@ def main(args):
     if create_dir(args.output):
         max_num_str = str(args.number)
         max_num_str_len = len(max_num_str)
+
+        generator = Generator(args.template, args.output)
+
         for i in range(0, args.number):
             num_str = str(i + 1).rjust(max_num_str_len)
             logger.info(f"Generating email ({num_str}/{max_num_str})")
-            generate_email(args.template, args.output)
+            generator.generate()
 
 
 def cli():
