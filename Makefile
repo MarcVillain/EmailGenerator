@@ -3,7 +3,7 @@ BIN      = generate.py
 TEMPLATE = template.eml
 OUTPUT   = output
 
-.PHONY: all run debug format clean
+.PHONY: all install run debug format clean
 
 all:
 	make run
