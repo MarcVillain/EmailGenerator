@@ -13,15 +13,16 @@ class SubjectField(Field):
 
     def _generate_subject(self):
         # Filter out first sentence (max length of 40 characters)
-        words = re.split(r"\W+", self.email.get_field("MESSAGE").body)
+        words = re.split(r"(\W+)", self.email.get_field("MESSAGE").body)
         sentence = words[0]
         for word in words[1:]:
-            extended_sentence = f"{sentence} {word}"
-            if len(extended_sentence) <= 40:
-                sentence = extended_sentence
+            extended_sentence = sentence + word
+            if len(extended_sentence) > 40:
+                break
+            sentence = extended_sentence
 
         # Cleanup
-        return re.sub("[^a-zA-Z _-]+", "", sentence).capitalize()
+        return sentence.strip().capitalize()
 
     def __str__(self):
         return self.subject

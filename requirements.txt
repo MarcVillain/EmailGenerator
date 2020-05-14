@@ -1,2 +1,3 @@
 black==19.10b0
 requests==2.23.0
+Unidecode==1.1.1

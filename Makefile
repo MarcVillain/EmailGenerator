@@ -1,6 +1,7 @@
 PYTHON   = python3
 BIN      = generate.py
 TEMPLATE = template.eml
+OUTPUT   = output
 
 .PHONY: all run debug format clean
 
@@ -13,10 +14,10 @@ install:
 	pip install -r requirements.txt
 
 run:
-	$(PYTHON) $(BIN)
+	$(PYTHON) $(BIN) --output $(OUTPUT)
 
 debug:
-	$(PYTHON) $(BIN) --debug --number 1
+	$(PYTHON) $(BIN) --debug --number 1 --output $(OUTPUT)
 
 format:
 	black *.py **/*.py

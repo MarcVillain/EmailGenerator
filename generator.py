@@ -4,6 +4,8 @@ import re
 from os import listdir
 from string import Template
 
+import unidecode as unidecode
+
 from emails.BaseEmail import BaseEmail
 from helpers.FilesHelper import FilesHelper
 
@@ -25,10 +27,8 @@ class Generator:
         email = BaseEmail()
 
         pattern_whitespaces = re.compile(r"\s+")
-        output_filename = (
-            re.sub(pattern_whitespaces, "_", email.get_field("SUBJECT").subject)
-            + ".eml"
-        )
+        clean_subject = unidecode.unidecode(email.get_field("SUBJECT").subject)
+        output_filename = re.sub(pattern_whitespaces, "_", clean_subject) + ".eml"
         output_path = os.path.join(self.output, output_filename)
 
         logger.debug("Write output file")
