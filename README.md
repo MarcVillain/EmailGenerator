@@ -1,7 +1,7 @@
 Email Generator
----
+===
 
-This is a simple script that will allow for email generation.
+This little script can let you generate random emails with ease.
 
 
 # Install
