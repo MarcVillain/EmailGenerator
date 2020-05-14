@@ -1,4 +1,12 @@
+${TO__first}
+M. ${TO__last}
+Mme. ${TO__last}
 Bonjour
+Bonjour ${TO__first}
+Bonjour M. ${TO__last}
+Bonjour Mme. ${TO__last}
+Salut
+Salut ${TO__first}
 Hello
 Hi
-Salut
+Hey

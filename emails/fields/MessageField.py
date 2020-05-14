@@ -23,13 +23,8 @@ class MessageField(Field):
         self.signature = "{} {}".format(from_field.first, from_field.last)
 
     def _generate_greetings(self):
-        greetings = FilesHelper.content.get("greetings")
-
-        # Add "Greeting <TO.first>"
-        greetings += [f"{greeting} {self.email.get_field('TO').first}" for greeting in greetings]
-
-        # Add "<TO.first>"
-        greetings.append(f"{self.email.get_field('TO').first}")
+        greetings = FilesHelper.content.get("greetings").copy()
+        greetings = [self._substitute_fields(greeting) for greeting in greetings]
 
         return random.choice(greetings) + ","
 
@@ -44,7 +39,6 @@ class MessageField(Field):
         paragraphs = generated_text.split("  <br> ")
         text = ""
         for i, paragraph in enumerate(paragraphs):
-            print(i)
             # Randomize number of paragraphs
             if i % 2 == 1 and random.choice([True, False]):
                 break
