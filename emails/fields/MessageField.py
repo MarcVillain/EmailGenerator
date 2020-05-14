@@ -32,11 +32,24 @@ class MessageField(Field):
         # Filter out what we want
         content_list = content.split("\n")
         generated_text = content_list[44]
-        first_paragraph = generated_text.split("  <br>")[0]
-        eighty_almighty = "\n".join(wrap(first_paragraph, width=78))
+        paragraphs = generated_text.split("  <br> ")
+        text = ""
+        for i, paragraph in enumerate(paragraphs):
+            print(i)
+            # Randomize number of paragraphs
+            if i % 2 == 1 and random.choice([True, False]):
+                break
+            # Randomize paragraph size
+            paragraph_list = paragraph.split(".")
+            sentences_count = random.randint(1, len(paragraph_list))
+            paragraph = ". ".join(paragraph_list[:sentences_count]) + "."
+            eighty_almighty = "\n".join(wrap(paragraph, width=78))
+            if text != "":
+                text += "\n\n"
+            text += eighty_almighty
 
         # Cleanup
-        return eighty_almighty.replace("&nbsp;", " ")
+        return text.replace("&nbsp;", " ").replace(". .", "..").replace(". .", "..")
 
     def _generate_farewells(self):
         return random.choice([
