@@ -1,3 +1,5 @@
+import random
+
 from emails import Email
 from emails.fields.ContactField import ContactField
 from emails.fields.DateField import DateField
@@ -10,8 +12,13 @@ class BaseEmail(Email):
     def __init__(self):
         super().__init__("base")
 
-        self.fields.add("FROM", ContactField)
-        self.fields.add("SENDER", self.fields.get("FROM"))
+        # Be careful when changing these, order matters
+        from_field = ContactField
+        self.fields.add("FROM", from_field)
+
+        sender_field = ContactField if random.randint(1, 20) == 1 else from_field
+        self.fields.add("SENDER", sender_field)
+
         self.fields.add("TO", ContactField)
         self.fields.add("DATE", DateField)
         self.fields.add("MESSAGE_ID", IdField)
