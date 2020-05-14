@@ -18,6 +18,7 @@ class Fields:
         self.values = dict()
 
     def add(self, name, value):
+        logger.debug(f"Adding field '{name}'")
         if inspect.isclass(value):
             self.values[name] = value(self.email)
         else:

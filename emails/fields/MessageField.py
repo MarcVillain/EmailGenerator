@@ -1,9 +1,14 @@
+import logging
 import random
 from textwrap import wrap
 
 import requests
 
 from emails.fields import Field
+from helpers.FilesHelper import FilesHelper
+
+
+logger = logging.getLogger()
 
 
 class MessageField(Field):
@@ -18,11 +23,15 @@ class MessageField(Field):
         self.signature = "{} {}".format(from_field.first, from_field.last)
 
     def _generate_greetings(self):
-        return random.choice([
-            "Bonjour,",
-            f"Bonjour {self.email.get_field('TO').first},",
-            f"{self.email.get_field('TO').first},",
-        ])
+        greetings = FilesHelper.content.get("greetings")
+
+        # Add "Greeting <TO.first>"
+        greetings += [f"{greeting} {self.email.get_field('TO').first}" for greeting in greetings]
+
+        # Add "<TO.first>"
+        greetings.append(f"{self.email.get_field('TO').first}")
+
+        return random.choice(greetings) + ","
 
     def _generate_body(self):
         # Get content from website
@@ -52,20 +61,7 @@ class MessageField(Field):
         return text.replace("&nbsp;", " ").replace(". .", "..").replace(". .", "..")
 
     def _generate_farewells(self):
-        return random.choice([
-            "Cordialement,",
-            "Bien cordialement,",
-            "Bonne journée,",
-            "Bonne soirée,",
-            "Bon après-midi,",
-            "Chaleureusement,",
-            "Sincèrement,",
-            "Salutations distinguées,",
-            "Merci,",
-            "Merci beaucoup,",
-            "Merci bien,",
-            "A bientôt,",
-        ])
+        return random.choice(FilesHelper.content.get("farewells")) + ","
 
     def __str__(self):
         return f"{self.greetings}\n\n{self.body}\n\n{self.farewells}\n\n-- \n{self.signature}"
