@@ -17,6 +17,7 @@ class Field(ABC):
         # See _substitute_fields
         self.template_fields = {}
         for key, value in self.email.fields.values.items():
+            self.template_fields[key] = str(value)
             for field_key, field_value in value.__dict__.items():
                 if field_key == "email":
                     continue
