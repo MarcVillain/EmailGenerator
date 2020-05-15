@@ -35,8 +35,12 @@ class Generator:
         email = BaseEmail()
 
         pattern_whitespaces = re.compile(r"\s+")
-        clean_subject = unidecode.unidecode(email.get_field("SUBJECT").subject)
-        output_filename = re.sub(pattern_whitespaces, "_", clean_subject) + ".eml"
+        clean_subject = unidecode.unidecode(
+            email.get_field("SUBJECT").subject
+        )
+        output_filename = (
+            re.sub(pattern_whitespaces, "_", clean_subject) + ".eml"
+        )
         output_path = os.path.join(self.output, output_filename)
 
         logger.debug("Write output file")

@@ -87,7 +87,11 @@ def cli():
     )
 
     parser.add_argument(
-        "-o", "--output", metavar="FOLDER", help="Output folder.", default="output",
+        "-o",
+        "--output",
+        metavar="FOLDER",
+        help="Output folder.",
+        default="output",
     )
 
     parser.add_argument(

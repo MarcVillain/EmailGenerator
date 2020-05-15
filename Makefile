@@ -20,7 +20,7 @@ debug:
 	$(PYTHON) $(BIN) --debug --number 1 --output $(OUTPUT)
 
 format:
-	black *.py **/*.py
+	black -l 78 *.py **/*.py
 
 clean:
 	$(RM) -rf $(OUTPUT)

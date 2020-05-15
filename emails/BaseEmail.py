@@ -25,7 +25,9 @@ class BaseEmail(Email):
         from_field = ContactField
         self.fields.add("FROM", from_field)
 
-        sender_field = ContactField if random.randint(1, 20) == 1 else from_field
+        sender_field = (
+            ContactField if random.randint(1, 20) == 1 else from_field
+        )
         self.fields.add("SENDER", sender_field)
 
         self.fields.add("TO", ContactField)
