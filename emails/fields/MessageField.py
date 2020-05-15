@@ -12,7 +12,15 @@ logger = logging.getLogger()
 
 
 class MessageField(Field):
+    """
+    Message Field.
+    """
     def __init__(self, email):
+        """
+        Generate field content.
+        Require fields: FROM
+        :param email: Parent Email object.
+        """
         super().__init__(email)
 
         from_field = email.get_field("FROM")
@@ -23,12 +31,20 @@ class MessageField(Field):
         self.signature = "{} {}".format(from_field.first, from_field.last)
 
     def _generate_greetings(self):
+        """
+        Generate random greetings from 'greetings' data list.
+        :return: Random greetings followed by a coma.
+        """
         greetings = FilesHelper.content.get("greetings").copy()
         greetings = [self._substitute_fields(greeting) for greeting in greetings]
 
         return random.choice(greetings) + ","
 
     def _generate_body(self):
+        """
+        Generate random body by loading it from http://enneagon.org/phrases.
+        :return: Randomly generated message body.
+        """
         # Get content from website
         req = requests.get("http://enneagon.org/phrases")
         content = req.text
@@ -55,7 +71,15 @@ class MessageField(Field):
         return text.replace("&nbsp;", " ").replace(". .", "..").replace(". .", "..")
 
     def _generate_farewells(self):
+        """
+        Generate random farewells from 'farewells' data list.
+        :return: Random farewells followed by a coma.
+        """
         return random.choice(FilesHelper.content.get("farewells")) + ","
 
     def __str__(self):
+        """
+        String representation of the message.
+        :return: Message field string representation.
+        """
         return f"{self.greetings}\n\n{self.body}\n\n{self.farewells}\n\n-- \n{self.signature}"

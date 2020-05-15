@@ -20,12 +20,22 @@ logger.addHandler(logger_console_stream)
 
 
 def ask_yes_no(message):
+    """
+    Ask a yes/no question, default being no.
+    :param message: The message to display.
+    :return: True if input is case insensitive "y" or "yes" else False.
+    """
     print(message, "[y/N]", end="")
     choice = input().lower()
     return choice in ["y", "yes"]
 
 
 def create_dir(path):
+    """
+    Create a directory. If it already exists, ask for override.
+    :param path: Path of the directory to create.
+    :return: True if created else False.
+    """
     # Ask for cleanup if necessary
     if os.path.exists(path):
         print(f"Folder '{path}' already exists.")
@@ -44,6 +54,10 @@ def create_dir(path):
 
 
 def main(args):
+    """
+    Setup logging and start email generation.
+    :param args: Dictionary of command line arguments.
+    """
     if args.debug:
         logger.setLevel(logging.DEBUG)
         logger_console_stream.setLevel(logging.DEBUG)
@@ -61,6 +75,10 @@ def main(args):
 
 
 def cli():
+    """
+    Handle command line.
+    :return: Dictionary of parsed arguments.
+    """
     parser = argparse.ArgumentParser()
 
     # Options

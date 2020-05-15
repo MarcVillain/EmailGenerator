@@ -14,6 +14,11 @@ logger = logging.getLogger()
 
 class Generator:
     def __init__(self, output):
+        """
+        Initialize the generator and pre-load the data files
+        that will be used for email generation.
+        :param output: Output folder.
+        """
         self.output = output
 
         # Pre-load data files
@@ -24,6 +29,9 @@ class Generator:
                 FilesHelper.load_list_from_file(file, path)
 
     def generate(self):
+        """
+        Generate an email.
+        """
         email = BaseEmail()
 
         pattern_whitespaces = re.compile(r"\s+")

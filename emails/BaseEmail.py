@@ -9,7 +9,16 @@ from emails.fields.SubjectField import SubjectField
 
 
 class BaseEmail(Email):
+    """
+    Base email with minimum required fields.
+
+    Fields: FROM, SENDER, TO, DATE, MESSAGE_ID, MESSAGE, SUBJECT
+    """
+
     def __init__(self):
+        """
+        Generate base email upon class instantiation.
+        """
         super().__init__("base")
 
         # Be careful when changing these, order matters
