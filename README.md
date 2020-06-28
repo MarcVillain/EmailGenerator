@@ -3,25 +3,24 @@ Email Generator
 
 This little script can let you generate random emails with ease.
 
-
 # Install
 
-This will create a `venv` folder, source it, and install dependencies.
-
 ```bash
-make install
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
 # Run
 
 ```bash
-make run
+python3 ./generate.py --help
 ```
 
 # Bibliography
 
-* [rfc5322](https://tools.ietf.org/html/rfc5322)
-* [rfc2046](https://tools.ietf.org/html/rfc2046)
+* [rfc5322 (Internet Message Format)](https://tools.ietf.org/html/rfc5322)
+* [rfc2046 (MIME Part two : Media Types)](https://tools.ietf.org/html/rfc2046)
 
 # Authors
 
