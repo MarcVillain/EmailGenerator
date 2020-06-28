@@ -47,7 +47,7 @@ def create_dir(path):
     # Create directory
     try:
         os.mkdir(path)
-    except OSError as e:
+    except OSError:
         logger.error(f"Creation of the directory '{path}' failed")
         return False
 
@@ -74,7 +74,7 @@ def main(args):
             for i, email in enumerate(scenario["emails"]):
                 num_str = str(i + 1).rjust(max_num_str_len)
                 logger.info(f"Generate scenario ({num_str}/{max_num_str})")
-                generator.generate(scenario=scenario["emails"][i])
+                generator.generate(scenario=email)
         else:
             max_num_str = str(args.number)
             max_num_str_len = len(max_num_str)

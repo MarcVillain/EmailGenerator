@@ -33,7 +33,6 @@ class ReplyEmail(BaseEmail):
 
         self.prev_email = prev_email
 
-
     def gen_fields(self):
         """
         Generate fields.
@@ -43,7 +42,7 @@ class ReplyEmail(BaseEmail):
         prev_to = self.prev_email.get_field("TO")
         prev_subject = self.prev_email.get_field("SUBJECT")
         prev_date = self.prev_email.get_field("DATE")
-    
+
         prev_subject.subject = f"Re: {prev_subject.subject}"
         # Add random time to previous answer
         d = random.randint(0, 7)
@@ -60,7 +59,7 @@ class ReplyEmail(BaseEmail):
         super().gen_fields()
 
         message = self.get_field("MESSAGE")
-        prev_message = "> " + str(self.prev_email.get_field("MESSAGE")).replace(
-            "\n", "\n> "
-        )
+        prev_message = "> " + str(
+            self.prev_email.get_field("MESSAGE")
+        ).replace("\n", "\n> ")
         self.fields.update("MESSAGE", f"{message}\n\n{prev_message}")

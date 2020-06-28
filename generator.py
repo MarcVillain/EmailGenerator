@@ -30,7 +30,9 @@ class Generator:
             if os.path.isfile(path):
                 FilesHelper.load_list_from_file(file, path)
 
-    def _generate_single(self, email_type, options=None, fields_values=None, **kwargs):
+    def _generate_single(
+        self, email_type, options=None, fields_values=None, **kwargs
+    ):
         """
         Generate an email.
         :param email_type: Email class.
@@ -41,7 +43,7 @@ class Generator:
         email = email_type(**kwargs)
         email.preset(fields_values)
         email.gen_fields()
-        
+
         # Generate attachments
         for attachment in options.get("attachments", []):
             email.add_attachment(attachment)
@@ -51,7 +53,10 @@ class Generator:
             email.get_field("SUBJECT").subject
         )
         output_filename = (
-            re.sub(pattern_whitespaces, "_", clean_subject) + "_" + str(uuid.uuid4())[:6] + ".eml"
+            re.sub(pattern_whitespaces, "_", clean_subject)
+            + "_"
+            + str(uuid.uuid4())[:6]
+            + ".eml"
         )
         output_path = os.path.join(self.output, output_filename)
 
@@ -100,22 +105,31 @@ class Generator:
                 if fields_values.get(name) is not None:
                     values = fields_values.get(name)
                     if isinstance(values, dict):
-                        fields_values[name] = { n:v for n, v in values.items() if v is not None }
+                        fields_values[name] = {
+                            n: v for n, v in values.items() if v is not None
+                        }
                     elif isinstance(values, list):
-                        fields_values[name] = [ v for v in values if v is not None ]
+                        fields_values[name] = [
+                            v for v in values if v is not None
+                        ]
                     # Delete field if empty
                     if not fields_values.get(name):
                         del fields_values[name]
 
                 # Look for options fields
-                if fields_values.get(name) is not None and all(c.islower() or c == "_" for c in name):
+                if fields_values.get(name) is not None and all(
+                    c.islower() or c == "_" for c in name
+                ):
                     options[name] = fields_values[name]
                     del fields_values[name]
 
             # Send proper email type depending on count
             email_type = BaseEmail if count == 0 else ReplyEmail
             prev_email = self._generate_single(
-                email_type, prev_email=prev_email, options=options, fields_values=fields_values
+                email_type,
+                prev_email=prev_email,
+                options=options,
+                fields_values=fields_values,
             )
 
             count += 1

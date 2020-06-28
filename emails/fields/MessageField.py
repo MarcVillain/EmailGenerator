@@ -15,7 +15,7 @@ class MessageField(Field):
     """
     Message Field.
     """
- 
+
     def __init__(self, email):
         """
         Generate field content.

@@ -75,9 +75,7 @@ class Fields:
         for field_name, field_value in value.__dict__.items():
             if field_name == "email":
                 continue
-            self.template_fields[
-                name + "__" + str(field_name)
-            ] = field_value
+            self.template_fields[name + "__" + str(field_name)] = field_value
 
     def preset_values(self, values):
         """
