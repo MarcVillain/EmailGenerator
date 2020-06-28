@@ -7,6 +7,7 @@ from string import Template
 
 from emails.fields import Field
 from emails.fields.ContactField import ContactField
+from emails.fields.ContentTypeField import ContentTypeField
 from emails.fields.DateField import DateField
 from emails.fields.IdField import IdField
 from emails.fields.MessageField import MessageField
@@ -39,6 +40,7 @@ class Fields:
             "MESSAGE_ID": IdField,
             "MESSAGE": MessageField,
             "SUBJECT": SubjectField,
+            "CONTENT_TYPE": ContentTypeField,
         }
 
     def _build(self, value, generate=True):

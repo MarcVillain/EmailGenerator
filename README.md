@@ -24,6 +24,8 @@ You can also load scenarios with the `--load` option. The format is the followin
 ```
 emails:                     # List of emails to generate
 - amount: 2                 # Amount of messages to exchange
+  attachments:              # List of files to attach to each email
+  - ["filename"]            # List of file names.
   NAME:                     # NAME must be in all caps
     attribute1: value       # attributes must be in all lowercase
     attribute2: value
@@ -57,6 +59,8 @@ emails:
 
 * [rfc5322 (Internet Message Format)](https://tools.ietf.org/html/rfc5322)
 * [rfc2046 (MIME Part two : Media Types)](https://tools.ietf.org/html/rfc2046)
+* [rfc2183 (The Content-Disposition Header Field)](https://tools.ietf.org/html/rfc2183)
+* [EML File Format](https://wiki.fileformat.com/email/eml/)
 
 # Authors
 

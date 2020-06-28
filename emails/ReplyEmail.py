@@ -13,7 +13,7 @@ class ReplyEmail(BaseEmail):
     """
     Reply email with minimum required fields.
 
-    Fields: BaseEmail + REPLY_TO
+    Fields: BaseEmail
     """
 
     def __init__(self, prev_email, template="base", **kwargs):
