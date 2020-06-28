@@ -1,6 +1,8 @@
 import logging
 import random
 
+from datetime import timedelta
+
 from emails.BaseEmail import BaseEmail
 from emails.fields.StringField import StringField
 
@@ -40,14 +42,20 @@ class ReplyEmail(BaseEmail):
         prev_from = self.prev_email.get_field("FROM")
         prev_to = self.prev_email.get_field("TO")
         prev_subject = self.prev_email.get_field("SUBJECT")
+        prev_date = self.prev_email.get_field("DATE")
     
         prev_subject.subject = f"Re: {prev_subject.subject}"
+        # Add random time to previous answer
+        d = random.randint(0, 7)
+        h = random.randint(0, 24)
+        m = random.randint(1, 60)
+        prev_date.date += timedelta(days=d, hours=h, minutes=m)
 
         self.fields.add("FROM", prev_to)
         self.fields.add("TO", prev_from)
         self.fields.add("SUBJECT", prev_subject)
-
-        # TODO: Better pre-fill of SENDER, DATE
+        self.fields.add("SENDER", prev_to)
+        self.fields.add("DATE", prev_date)
 
         super().gen_fields()
 
