@@ -84,11 +84,18 @@ class Generator:
             for name, value in scenario.items():
                 if isinstance(value, list):
                     # This allows for multiple emails field scripting
-                    if count < len(value):
+                    if count < len(value) and value[count] is not None:
                         fields_values[name] = value[count]
-                elif count == 0:
+                elif count == 0 and value is not None:
                     # No list == list of one element
                     fields_values[name] = value
+
+                # Remove None fields
+                if fields_values.get(name) is not None:
+                    fields_values[name] = { n:v for n, v in fields_values.get(name).items() if v is not None }
+                    # Delete field if empty
+                    if not fields_values.get(name):
+                        del fields_values[name]
 
             # Send proper email type depending on count
             email_type = BaseEmail if count == 0 else ReplyEmail

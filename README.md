@@ -29,8 +29,8 @@ emails:                     # List of emails to generate
     attribute2: value
   NAME:                     # If the NAME field is a list, it will
   - attribute1: value       # be iterated over, one value per email
-    attribute2: value
-  - attribute1: value
+    attribute2: ~           # You can use a ~ caracter to represent
+  - attribute1: value       # an automatically generated value
 ```
 
 Note that any missing field will be filled with a random value that will be used for the entire conversation.
