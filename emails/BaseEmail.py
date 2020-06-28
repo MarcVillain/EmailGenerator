@@ -1,3 +1,4 @@
+import logging
 import random
 
 from emails import Email
@@ -15,11 +16,13 @@ class BaseEmail(Email):
     Fields: FROM, SENDER, TO, DATE, MESSAGE_ID, MESSAGE, SUBJECT
     """
 
-    def __init__(self):
+    def __init__(self, template="base", fields_values=None, **kwargs):
         """
         Generate base email upon class instantiation.
+        :param template: Name of the template to use.
+        :param fields_values: (Optional) Name and value fields preset.
         """
-        super().__init__("base")
+        super().__init__(template=template, fields_values=fields_values, **kwargs)
 
         # Be careful when changing these, order matters
         from_field = ContactField

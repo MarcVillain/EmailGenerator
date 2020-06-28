@@ -18,7 +18,7 @@ class ContactField(Field):
 
         self.first = self._generate_first_name()
         self.last = self._generate_last_name()
-        self.email = "{}.{}@fic.com".format(self.first.lower(), self.last.lower())
+        self.email_addr = "{}.{}@fic.com".format(self.first.lower(), self.last.lower())
 
     def _generate_first_name(self):
         """
@@ -40,4 +40,4 @@ class ContactField(Field):
         String representation of the contact.
         :return: Contact field as 'First LAST <first.last@fic.com>'.
         """
-        return f"{self.first} {self.last} <{self.email}>"
+        return f"{self.first} {self.last} <{self.email_addr}>"

@@ -1,0 +1,11 @@
+From: ${FROM}
+Sender: ${SENDER}
+To: ${TO}
+Subject: ${SUBJECT}
+Date: ${DATE}
+Message-ID: ${MESSAGE_ID}
+Content-type: text/plain; charset=iso-8859-1
+
+${MESSAGE}
+
+${PREV_MESSAGE}

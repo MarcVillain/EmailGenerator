@@ -7,6 +7,7 @@ from string import Template
 import unidecode as unidecode
 
 from emails.BaseEmail import BaseEmail
+from emails.ReplyEmail import ReplyEmail
 from helpers.FilesHelper import FilesHelper
 
 logger = logging.getLogger()
@@ -28,11 +29,13 @@ class Generator:
             if os.path.isfile(path):
                 FilesHelper.load_list_from_file(file, path)
 
-    def generate(self):
+    def _generate_single(self, email_type, **kwargs):
         """
         Generate an email.
+        :param email_type: Email class.
+        :return: Generated Email object.
         """
-        email = BaseEmail()
+        email = email_type(**kwargs)
 
         pattern_whitespaces = re.compile(r"\s+")
         clean_subject = unidecode.unidecode(
@@ -46,3 +49,22 @@ class Generator:
         logger.debug("Write output file")
         with open(output_path, "w") as output_file:
             output_file.write(str(email))
+
+        return email
+
+    def generate(self, amount=1, fields_values=None):
+        """
+        Generate multiple emails.
+        :param amount: Number of emails to generate. (1 BasicEmail and n-1 ReplyEmail)
+        :param fields_values: (Optional) Name and value fields preset.
+        """
+        if amount < 0:
+            logger.error("Unable to generate a negative amount of emails")
+            return
+
+        prev_email = None
+        count = 0
+        while count < amount:
+            email_type = BaseEmail if count == 0 else ReplyEmail
+            prev_email = self._generate_single(email_type, prev_email=prev_email, fields_values=fields_values)
+            count += 1
