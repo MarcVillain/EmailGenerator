@@ -18,7 +18,14 @@ class SubjectField(Field):
         """
         super().__init__(email)
 
-        self.subject = self._generate_subject()
+    def generate(self):
+        """
+        Start the field generation process.
+        """
+        super().generate()
+
+        if not hasattr(self, "subject"):
+            self.subject = self._generate_subject()
 
     def _generate_subject(self):
         """

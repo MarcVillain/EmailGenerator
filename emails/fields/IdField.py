@@ -17,7 +17,14 @@ class IdField(Field):
         """
         super().__init__(email)
 
-        self.id = uuid.uuid4()
+    def generate(self):
+        """
+        Start the field generation process.
+        """
+        super().generate()
+
+        if not hasattr(self, "id"):
+            self.id = uuid.uuid4()
 
     def __str__(self):
         """

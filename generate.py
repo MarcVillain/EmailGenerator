@@ -5,6 +5,7 @@ import re
 import shutil
 from string import Template
 import sys
+import yaml
 
 from generator import Generator
 
@@ -63,15 +64,24 @@ def main(args):
         logger_console_stream.setLevel(logging.DEBUG)
 
     if create_dir(args.output):
-        max_num_str = str(args.number)
-        max_num_str_len = len(max_num_str)
 
         generator = Generator(args.output)
 
-        for i in range(0, args.number):
-            num_str = str(i + 1).rjust(max_num_str_len)
-            logger.info(f"Generate email ({num_str}/{max_num_str})")
-            generator.generate()
+        if args.scenario:
+            scenario = yaml.load(args.scenario)
+            max_num_str = str(len(scenario["emails"]))
+            max_num_str_len = len(max_num_str)
+            for i, email in enumerate(scenario["emails"]):
+                num_str = str(i + 1).rjust(max_num_str_len)
+                logger.info(f"Generate scenario ({num_str}/{max_num_str})")
+                generator.generate(scenario=scenario["emails"][i])
+        else:
+            max_num_str = str(args.number)
+            max_num_str_len = len(max_num_str)
+            for i in range(0, args.number):
+                num_str = str(i + 1).rjust(max_num_str_len)
+                logger.info(f"Generate email ({num_str}/{max_num_str})")
+                generator.generate()
 
 
 def cli():
@@ -101,6 +111,14 @@ def cli():
         help="Number of emails to generate.",
         type=int,
         default=10,
+    )
+
+    parser.add_argument(
+        "-s",
+        "--scenario",
+        metavar="YAML_FILE",
+        help="Scenario to use for generation. This overrides the -n/--number option.",
+        type=argparse.FileType("r"),
     )
 
     return parser.parse_args()

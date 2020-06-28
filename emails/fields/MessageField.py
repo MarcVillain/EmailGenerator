@@ -15,7 +15,7 @@ class MessageField(Field):
     """
     Message Field.
     """
-
+ 
     def __init__(self, email):
         """
         Generate field content.
@@ -24,12 +24,27 @@ class MessageField(Field):
         """
         super().__init__(email)
 
-        from_field = email.get_field("FROM")
+    def generate(self):
+        """
+        Start the field generation process.
+        """
+        super().generate()
 
-        self.greetings = self._generate_greetings()
-        self.body = self._generate_body()
-        self.farewells = self._generate_farewells()
-        self.signature = "{} {}".format(from_field.first, from_field.last)
+        if not hasattr(self, "greetings"):
+            self.greetings = self._generate_greetings()
+
+        if not hasattr(self, "body"):
+            self.body = self._generate_body()
+
+        if not hasattr(self, "dfarewellsate"):
+            self.farewells = self._generate_farewells()
+
+        if not hasattr(self, "signature"):
+            from_field = self.email.get_field("FROM")
+            self.signature = "{} {}".format(from_field.first, from_field.last)
+
+        if not hasattr(self, "footer"):
+            self.footer = None  # Can only be set manually
 
     def _generate_greetings(self):
         """
@@ -89,4 +104,8 @@ class MessageField(Field):
         String representation of the message.
         :return: Message field string representation.
         """
-        return f"{self.greetings}\n\n{self.body}\n\n{self.farewells}\n\n-- \n{self.signature}"
+        # The footer is a weird case at it is only set manually
+        footer = getattr(self, "footer", None)
+        footer = "" if footer is None else f"\n\n{self.footer}"
+
+        return f"{self.greetings}\n\n{self.body}\n\n{self.farewells}\n\n-- \n{self.signature}{footer}"
