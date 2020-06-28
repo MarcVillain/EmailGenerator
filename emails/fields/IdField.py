@@ -8,6 +8,7 @@ class IdField(Field):
     """
     Id field.
     """
+
     def __init__(self, email):
         """
         Generate field content.

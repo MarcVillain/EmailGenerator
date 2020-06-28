@@ -8,6 +8,7 @@ class ContactField(Field):
     """
     Contact field.
     """
+
     def __init__(self, email):
         """
         Generate field content.
@@ -18,7 +19,9 @@ class ContactField(Field):
 
         self.first = self._generate_first_name()
         self.last = self._generate_last_name()
-        self.email_addr = "{}.{}@fic.com".format(self.first.lower(), self.last.lower())
+        self.email_addr = "{}.{}@fic.com".format(
+            self.first.lower(), self.last.lower()
+        )
 
     def _generate_first_name(self):
         """

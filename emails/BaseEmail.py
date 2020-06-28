@@ -22,7 +22,9 @@ class BaseEmail(Email):
         :param template: Name of the template to use.
         :param fields_values: (Optional) Name and value fields preset.
         """
-        super().__init__(template=template, fields_values=fields_values, **kwargs)
+        super().__init__(
+            template=template, fields_values=fields_values, **kwargs
+        )
 
         # Be careful when changing these, order matters
         from_field = ContactField

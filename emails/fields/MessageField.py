@@ -15,6 +15,7 @@ class MessageField(Field):
     """
     Message Field.
     """
+
     def __init__(self, email):
         """
         Generate field content.
@@ -36,7 +37,9 @@ class MessageField(Field):
         :return: Random greetings followed by a coma.
         """
         greetings = FilesHelper.content.get("greetings").copy()
-        greetings = [self._substitute_fields(greeting) for greeting in greetings]
+        greetings = [
+            self._substitute_fields(greeting) for greeting in greetings
+        ]
 
         return random.choice(greetings) + ","
 
@@ -68,7 +71,11 @@ class MessageField(Field):
             text += eighty_almighty
 
         # Cleanup
-        return text.replace("&nbsp;", " ").replace(". .", "..").replace(". .", "..")
+        return (
+            text.replace("&nbsp;", " ")
+            .replace(". .", "..")
+            .replace(". .", "..")
+        )
 
     def _generate_farewells(self):
         """

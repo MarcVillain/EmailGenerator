@@ -100,7 +100,9 @@ class Email(ABC):
         :param template: Name of the template to use.
         :param fields_values: (Optional) Name and value fields preset.
         """
-        logger.debug(f"Generate {self.__class__.__name__} with {template} template")
+        logger.debug(
+            f"Generate {self.__class__.__name__} with {template} template"
+        )
 
         self.template = template
         self.fields = Fields(self, values=fields_values)

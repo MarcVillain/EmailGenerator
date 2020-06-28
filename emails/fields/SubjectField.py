@@ -9,6 +9,7 @@ class SubjectField(Field):
     """
     Subject field.
     """
+
     def __init__(self, email):
         """
         Generate field content.

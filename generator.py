@@ -66,5 +66,7 @@ class Generator:
         count = 0
         while count < amount:
             email_type = BaseEmail if count == 0 else ReplyEmail
-            prev_email = self._generate_single(email_type, prev_email=prev_email, fields_values=fields_values)
+            prev_email = self._generate_single(
+                email_type, prev_email=prev_email, fields_values=fields_values
+            )
             count += 1
