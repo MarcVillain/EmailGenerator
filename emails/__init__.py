@@ -5,6 +5,7 @@ import pathlib
 from abc import ABC
 from string import Template
 
+from emails.fields import Field
 from emails.fields.ContactField import ContactField
 from emails.fields.DateField import DateField
 from emails.fields.IdField import IdField
@@ -50,9 +51,14 @@ class Fields:
         if isinstance(value, str):
             value = StringField(value, self.email)
 
-        # TODO: Add check for Field type
         elif inspect.isclass(value):
+            if not issubclass(value, Field):
+                logger.error("Trying to build a non-Field class")
+                return StringField("TYPE_ERROR", self.email)
             value = value(self.email)
+        elif not isinstance(value, Field):
+            logger.error("Trying to build a non-Field object")
+            return StringField("TYPE_ERROR", self.email)
 
         if generate:
             value.generate()
