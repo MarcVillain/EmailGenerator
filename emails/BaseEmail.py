@@ -61,7 +61,7 @@ class BaseEmail(Email):
 
         fileid = str(uuid.uuid4())
         attachment_message = (
-            f'Content-Type: text/plain; charset="iso-8859-1"; name="{filename}"\n'
+            f'Content-Type: text/plain; charset="utf-8"; name="{filename}"\n'
             + f'Content-Disposition: attachment; filename="{filename}"\n'
             + "Content-Transfer-Encoding: base64\n"
             + f"X-Attachment-Id: {fileid}\n"

@@ -24,7 +24,7 @@ class ContentTypeField(Field):
         super().generate()
 
         if not hasattr(self, "type"):
-            self.type = 'text/plain; charset="iso-8859-1"'
+            self.type = 'text/plain; charset="utf-8"'
 
     def __str__(self):
         """
