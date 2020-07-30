@@ -54,4 +54,4 @@ class ContactField(Field):
         String representation of the contact.
         :return: Contact field as 'First LAST <first.last@fic.com>'.
         """
-        return f"{self.first} {self.last} <{self.email_addr}>"
+        return f"\"{self.first} {self.last}\" <{self.email_addr}>"
