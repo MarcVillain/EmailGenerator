@@ -36,7 +36,7 @@ class MessageField(Field):
         if not hasattr(self, "body"):
             self.body = self._generate_body()
 
-        if not hasattr(self, "dfarewellsate"):
+        if not hasattr(self, "farewells"):
             self.farewells = self._generate_farewells()
 
         if not hasattr(self, "signature"):
