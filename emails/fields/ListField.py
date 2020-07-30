@@ -36,7 +36,7 @@ class ListField(Field):
             value.generate()
 
     def add(self, value):
-        logger.debug(f"Adding list element")
+        logger.debug(f"Adding element to field list")
         self.values.append(value)
 
     def __str__(self):

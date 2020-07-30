@@ -88,6 +88,7 @@ class Fields:
         # Values is a dictionnary of name/value set which are both strings.
         # We need to convert them to actual Field objects before use.
         for name, value in values.items():
+            logger.debug(f"Preset attributes value of '{name}'")
             if name in self.name_to_class.keys():
                 field_type = self.name_to_class.get(name)
                 field_object = field_type(self.email)
@@ -96,9 +97,9 @@ class Fields:
                 # Handle list types
                 if issubclass(field_type, ListField):
                     for val in value["values"]:
+                        subfield_type = field_object.elements_type
+                        subfield_object = subfield_type(self.email)
                         for n, v in val.items():
-                            subfield_type = field_object.elements_type
-                            subfield_object = subfield_type(self.email)
                             logger.debug(f"Set attribute '{n}' with value '{v}'")
                             setattr(subfield_object, n, v)
                         field_object.add(subfield_object)
