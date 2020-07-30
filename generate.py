@@ -42,7 +42,7 @@ def create_dir(path):
         print(f"Folder '{path}' already exists.")
         if not ask_yes_no("Do you want to replace it?"):
             return False
-        shutil.rmtree(path)
+        shutil.rmtree(path, ignore_errors=True)
 
     # Create directory
     try:
