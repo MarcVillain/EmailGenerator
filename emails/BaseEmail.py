@@ -37,6 +37,7 @@ class BaseEmail(Email):
             "SENDER", None if random.randint(1, 20) == 1 else from_field
         )
         self.fields.add("TO")
+        self.fields.add("CC", "")
         self.fields.add("DATE")
         self.fields.add("MESSAGE_ID")
         self.fields.add("MESSAGE")

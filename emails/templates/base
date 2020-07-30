@@ -1,6 +1,7 @@
 From: ${FROM}
 Sender: ${SENDER}
 To: ${TO}
+Cc: ${CC}
 Subject: ${SUBJECT}
 Date: ${DATE}
 Message-ID: ${MESSAGE_ID}

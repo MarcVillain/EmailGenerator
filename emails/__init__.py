@@ -7,9 +7,11 @@ from string import Template
 
 from emails.fields import Field
 from emails.fields.ContactField import ContactField
+from emails.fields.ContactListField import ContactListField
 from emails.fields.ContentTypeField import ContentTypeField
 from emails.fields.DateField import DateField
 from emails.fields.IdField import IdField
+from emails.fields.ListField import ListField
 from emails.fields.MessageField import MessageField
 from emails.fields.StringField import StringField
 from emails.fields.SubjectField import SubjectField
@@ -36,6 +38,7 @@ class Fields:
             "FROM": ContactField,
             "SENDER": ContactField,
             "TO": ContactField,
+            "CC": ContactListField,
             "DATE": DateField,
             "MESSAGE_ID": IdField,
             "MESSAGE": MessageField,
@@ -87,9 +90,24 @@ class Fields:
         for name, value in values.items():
             if name in self.name_to_class.keys():
                 field_type = self.name_to_class.get(name)
-                self.values[name] = field_type(self.email)
-                for n, v in value.items():
-                    setattr(self.values[name], n, v)
+                field_object = field_type(self.email)
+                self.values[name] = field_object
+
+                # Handle list types
+                if issubclass(field_type, ListField):
+                    for val in value["values"]:
+                        for n, v in val.items():
+                            subfield_type = field_object.elements_type
+                            subfield_object = subfield_type(self.email)
+                            logger.debug(f"Set attribute '{n}' with value '{v}'")
+                            setattr(subfield_object, n, v)
+                        field_object.add(subfield_object)
+
+                # Handle types with simple elements
+                else:
+                    for n, v in value.items():
+                        logger.debug(f"Set attribute '{n}' with value '{v}'")
+                        setattr(field_object, n, v)
             else:
                 self.values[name] = self._build(str(value), generate=False)
 
